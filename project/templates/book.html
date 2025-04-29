@@ -375,7 +375,7 @@
     <main class="container">
 
         <div class="product-image-column">
-            <img data-image="black" src="{{ url_for('static', filename= baseurl + book.image_filename) }}" alt="">
+            <img data-image="black" src="{{ baseurl + book.image_filename }}" alt="">
         </div>
 
         <div class="product-details-column">
@@ -442,7 +442,7 @@
                                     {% if current_user.image_filename %}
                                     <img style="max-width: 100px;max-height:100px;border-radius:12px;"
                                         class="img-responsive"
-                                        src="{{ url_for('static', filename=baseurl + current_user.image_filename) }}"
+                                        src="{{ baseurl + current_user.image_filename }}"
                                         alt="">
                                     {% else %}
                                     <img style="max-width: 100px;max-height:100px;" class="img-responsive"
@@ -464,7 +464,7 @@
                         <a class="float-start" href="#">
                             <div class="float-shrink-0">
                                 {% if comment.user.image_filename %}
-                                <img src="{{ url_for('static', filename=baseurl + comment.user.image_filename) }}"
+                                <img src="{{ baseurl + comment.user.image_filename }}"
                                     alt="">
                                 {% else %}
                                 <img src="{{ url_for('static', filename='Assets/12.jpg') }}" alt="">
