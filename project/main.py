@@ -541,10 +541,11 @@ def dashboard():
     today_issue_count = db.session.query(func.count(IssueHistory.book_id)) \
         .filter(func.date(IssueHistory.issue_date) == datetime.now().date()) \
         .scalar()
-    if average_issue_per_day != 0:
+    if average_issue_per_day:
         percentage = (today_issue_count / average_issue_per_day) * 100
     else:
-        percentage = 0
+        percentage = 0  # or handle differently
+
     user_id = current_user.id
     return render_template('dashboard.html' , total_pending_books=total_pending_books, baseurl=baseurl, issue=issue, avg_rating=avg_rating,percentage=round(percentage),user_id=user_id )
 
