@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issued Books</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'CSS/bootstrap.css') }}">
+    <script src="{{ url_for('static', filename = 'JS/bootstrap.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" href="{{ url_for('static', filename = 'Assets/6.png') }}" type="image/x-icon">
+    <style>
+        body {
+            margin-top: 20px;
+            background-color: #1a1625;
+        }
+
+        @font-face {
+            font-family: Against;
+            src: url("{{ url_for('static', filename = 'Assets/against.ttf') }}");
+        }
+
+        .event-schedule-area .section-title .title-text {
+            margin-bottom: 50px;
+        }
+
+        .event-schedule-area .tab-area .nav-tabs {
+            border-bottom: inherit;
+        }
+
+        .event-schedule-area .tab-area .nav {
+            border-bottom: inherit;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            margin-top: 80px;
+        }
+
+        .event-schedule-area .tab-area .nav-item {
+            margin-bottom: 75px;
+        }
+
+        .event-schedule-area .tab-area .nav-item .nav-link.active {
+            color: #4125dd;
+            background-color: transparent;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table {
+            margin-bottom: 0;
+            width: 80%;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table td,
+        .event-schedule-area .tab-area .tab-content .table th {
+            border: 1px solid #b7b7b7;
+            padding-left: 30px;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table tbody th .heading,
+        .event-schedule-area .tab-area .tab-content .table tbody td .heading {
+            font-size: 16px;
+            text-transform: capitalize;
+            margin-bottom: 16px;
+            font-weight: 500;
+            color: #252525;
+            margin-bottom: 6px;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table tbody th span,
+        .event-schedule-area .tab-area .tab-content .table tbody td span {
+            color: #4125dd;
+            font-size: 18px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table tbody th span.date,
+        .event-schedule-area .tab-area .tab-content .table tbody td span.date {
+            color: #656565;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 15px;
+        }
+
+        .event-schedule-area .tab-area .tab-content .table tbody th p {
+            font-size: 14px;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .event-schedule-area-two .section-title .title-text h2 {
+            margin: 0px 0 15px;
+        }
+
+        .event-schedule-area-two ul.custom-tab {
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 30px;
+        }
+
+        .event-schedule-area-two ul.custom-tab li {
+            margin-right: 70px;
+            position: relative;
+        }
+
+        .event-schedule-area-two ul.custom-tab li a {
+            color: #252525;
+            font-size: 25px;
+            line-height: 25px;
+            font-weight: 600;
+            text-transform: capitalize;
+            padding: 35px 0;
+            position: relative;
+        }
+
+        .event-schedule-area-two ul.custom-tab li a:hover:before {
+            width: 100%;
+        }
+
+        .event-schedule-area-two ul.custom-tab li a:before {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            content: "";
+            background: #4125dd;
+            width: 0;
+            height: 2px;
+            -webkit-transition: all 0.4s;
+            -o-transition: all 0.4s;
+            transition: all 0.4s;
+        }
+
+        .event-schedule-area-two .primary-btn {
+            margin-top: 40px;
+        }
+
+        .event-schedule-area-two .tab-content .table {
+            -webkit-box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody {
+            color: #a688fa;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr.inner-box {
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr th {
+            border: 0;
+            padding: 30px 20px;
+            vertical-align: middle;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr th .event-date {
+            color: #FFFBF5;
+            text-align: center;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr th .event-date span {
+            font-size: 50px;
+            line-height: 50px;
+            font-weight: normal;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr td {
+            padding: 30px 20px;
+            vertical-align: middle;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr td .r-no span {
+            color: #FFFBF5;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr td .event-wrap h3 a {
+            font-size: 20px;
+            line-height: 20px;
+            color: #cf057c;
+            -webkit-transition: all 0.4s;
+            -o-transition: all 0.4s;
+            transition: all 0.4s;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr td .event-wrap h3 a:hover {
+            color: #4125dd;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr td .event-wrap .time span {
+            color: #FFFBF5;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr td .event-wrap .organizers {
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            margin: 10px 0;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr td .event-wrap .organizers a {
+            color: #4125dd;
+            font-size: 16px;
+            -webkit-transition: all 0.4s;
+            -o-transition: all 0.4s;
+            transition: all 0.4s;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr td .event-wrap .organizers a:hover {
+            color: #4125dd;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr td .event-wrap .organizers a:before {
+            content: "\f007";
+            font-family: fontawesome;
+            padding-right: 5px;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr td .primary-btn {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .event-schedule-area-two .tab-content .table tbody tr td .event-img img {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+        }
+
+        #unique-btn {
+            display: inline-block;
+            padding: 32px;
+            position: relative;
+            letter-spacing: 1px;
+        }
+
+        #unique-btn .btn__circle,
+        #unique-btn .btn__text,
+        #unique-btn .btn__white-circle {
+            position: absolute;
+        }
+
+        #unique-btn .btn__circle {
+            top: 0;
+            left: 0;
+            margin-left: 68px;
+            height: 100%;
+            border-radius: 100%;
+            width: 100%;
+            box-shadow: 0 0 1px 1px #a688fa;
+            transition: 0.3s linear;
+        }
+
+        #unique-btn .btn__white-circle {
+            top: 50%;
+            left: 50%;
+            margin-left: 68px;
+            transform: translate(-50%, -50%) scale(0);
+            width: 56px;
+            height: 56px;
+            border-radius: 100%;
+            background: #a688fa;
+            display: flex;
+            transition: 0.3s ease-in-out;
+        }
+
+        #unique-btn .btn__white-circle svg {
+            width: 24px;
+            height: 24px;
+            margin: auto;
+        }
+
+        #unique-btn .btn__text {
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            z-index: 2;
+            padding: 24px 8px;
+            transition: 0.3s linear;
+        }
+
+        #unique-btn:hover .btn__circle {
+            transform: scale(0);
+        }
+
+        #unique-btn:hover .btn__white-circle {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        #unique-btn:hover .btn__text {
+            transform: translate(-40px, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="event-schedule-area-two">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title text-center">
+                        <div class="title-text">
+                            <h2 style="color: #FFFBF5;font-family:Against;">Book Issued</h2>
+                        </div>
+                        <p style="color: #a688fa;">{{ current_user.name }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade active show" id="home" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        {% for issued_book in issued_books %}
+                                        <tr class="inner-box">
+                                            <th scope="row">
+                                                <div class="event-date">
+                                                    <span>{{ issued_book.id }}</span>
+                                                    <p>Issue No.</p>
+                                                </div>
+                                            </th>
+                                            <td>
+                                                <div class="event-img">
+                                                    <img src="{{ url_for('static', filename=baseurl + issued_book.book.image_filename) }}"
+                                                        alt="" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="event-wrap">
+                                                    <h3>{{ issued_book.book.title }}</h3>
+                                                    <div class="meta">
+                                                        <div class="time">
+                                                            <span>Issue Date:</span>
+                                                            <p>{{ issued_book.issue_date.strftime('%d %B') }}</p>
+                                                            <span>Issue Time:</span>
+                                                            <p>{{ issued_book.issue_date.strftime('%I:%M %p') }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="r-no">
+
+                                                    <div class="organizers">
+                                                        <h3>{{ issued_book.book.author }}</h3>
+                                                    </div>
+                                                    <span>Return Date:</span>
+                                                    <p>{{ issued_book.return_date.strftime('%d %B') }}</p>
+                                                    <span>Return Time:</span>
+                                                    <p>{{ issued_book.return_date.strftime('%I:%M %p') }}</p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {% if issued_book.status == 'issued' %}
+                                                <div class="primary-btn">
+                                                    <a class="btn btn-primary"
+                                                        href="{{ url_for('main.read', id=issued_book.book.id) }}">Read</a>
+                                                </div>
+                                                <br>
+                                                <div class="primary-btn">
+                                                    <button class="btn btn-primary" id="return"
+                                                        data-issue-id="{{ issued_book.id }}">Return</button>
+                                                </div>
+                                                {% else %}
+                                                <div class="d-flex justify-content-center" style="color: #FFFBF5;">
+                                                    <p>Request Pending</p>
+                                                </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="left:90.8%; bottom:25px;position:sticky;z-index:1;height:50px;width:30px">
+        <main class="content" id="unique-content" data-form-type="card">
+            <a href="{{ url_for('main.profile') }}" class="btn" id="unique-btn">
+                <span class="btn__circle"></span>
+                <span class="btn__white-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="4" d="M31 36L19 24l12-12" />
+                    </svg>
+                </span>
+                <span class="btn__text" style="color: #FFFBF5;">Go Back</span>
+            </a>
+        </main>
+    </div>
+    <script>
+        (function () {
+            $('#return').click(function () {
+                var issueId = $(this).data('issue-id');
+                $.ajax({
+                    url: '/return_book/' + issueId,
+                    type: 'DELETE',
+                    success: function (response) {
+                        window.location.href = '/issuebook';
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>

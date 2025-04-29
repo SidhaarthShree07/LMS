@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'CSS/bootstrap.css') }}">
+    <script src="{{ url_for('static', filename = 'JS/bootstrap.js') }}"></script>
+    <link rel="icon" href="{{ url_for('static', filename = 'Assets/6.png') }}" type="image/x-icon">
+    <title>Welcome Page</title>
+    <style>
+        *:before,
+        *:after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #1a1625;
+        }
+
+        .one {
+            margin-left: 40px;
+            margin-right: 50px;
+            font-size: 80px;
+            font-family: Faltura;
+            letter-spacing: 5px;
+        }
+
+        p {
+            color: #a688fa;
+        }
+
+        @font-face {
+            font-family: Faltura;
+            src: url("{{ url_for('static', filename = 'Assets/Fontspring-DEMO-robson-extrabold.otf') }}");
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid text-left" style="margin-top:50px">
+        <div class="row" style="height: 500px;">
+            <div class="col-sm-6">
+                <div class="row">
+                    <p class="one">LIBRARY MANAGEMENT SYSTEM</p>
+                </div>
+                <div class="row">
+                    <p style="color: #FFFBF5;margin-left:40px">Our web application is a comprehensive library management
+                        system that empowers users to explore, borrow, purchase, rate, and discuss a wide array of
+                        books. Users can effortlessly browse through our extensive collection. They have the flexibility
+                        to issue E-books, purchase e-books, rate their reads, and engage in discussions by leaving
+                        comments. With features like personalized profiles and convenient access controls, our platform
+                        ensures a seamless and enriching experience for all book enthusiasts.</p>
+                    <br>
+                    <div style="margin-left:40px">
+                        <button class="btn btn-primary"
+                            onclick="window.location.href = '/Login';"><span>LOGIN</span></button>
+                        <button style="margin-left: 40px;" class="btn btn-primary"
+                            onclick="window.location.href = '/Register';"><span>REGISTER</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <img src="{{ url_for('static', filename = 'Assets/10.png') }}">
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
