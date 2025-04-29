@@ -565,7 +565,7 @@ def dashboard_data():
 @main.route('/section')
 def section():
     sec = Section.query.all()
-    return render_template('section.html', sec, baseurl=baseurl)
+    return render_template('section.html', sec=sec, baseurl=baseurl)
 
 @main.route('/delete_section/<int:section_id>', methods=['POST'])
 def delete_section(section_id):
