@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'CSS/bootstrap.css') }}">
+    <script src="{{ url_for('static', filename = 'JS/bootstrap.js') }}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+    <link rel="icon" href="{{ url_for('static', filename = 'Assets/6.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            background-color: #1a1625;
+        }
+
+        .bxs--chat {
+            display: inline-block;
+            width: 3em;
+            height: 3em;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M4 18h2v4.081L11.101 18H16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2'/%3E%3Cpath fill='%23000' d='M20 2H8c-1.103 0-2 .897-2 2h12c1.103 0 2 .897 2 2v8c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2'/%3E%3C/svg%3E");
+            background-color: #FFFBF5;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+
+        .fluent--book-24-regular {
+            display: inline-block;
+            width: 3em;
+            height: 3em;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M7 6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1zm1.5 1.5h7v-1h-7zM4 4.5A2.5 2.5 0 0 1 6.5 2H18a2.5 2.5 0 0 1 2.5 2.5v14.25a.75.75 0 0 1-.75.75H5.5a1 1 0 0 0 1 1h13.25a.75.75 0 0 1 0 1.5H6.5A2.5 2.5 0 0 1 4 19.5zM5.5 18H19V4.5a1 1 0 0 0-1-1H6.5a1 1 0 0 0-1 1z'/%3E%3C/svg%3E");
+            background-color: #FFFBF5;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+
+        .mdi--star-outline {
+            display: inline-block;
+            width: 3em;
+            height: 3em;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m12 15.39l-3.76 2.27l.99-4.28l-3.32-2.88l4.38-.37L12 6.09l1.71 4.04l4.38.37l-3.32 2.88l.99 4.28M22 9.24l-7.19-.61L12 2L9.19 8.63L2 9.24l5.45 4.73L5.82 21L12 17.27L18.18 21l-1.64-7.03z'/%3E%3C/svg%3E");
+            background-color: #FFFBF5;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex flex-column">
+        <div class="container-fluid">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0" style="color: #FFFBF5;">Dashboard</h1>
+                <a href="{{ url_for('main.user_profile', user_id=user_id) }}"
+                    style="text-decoration: none; color:black">
+                    <div style="right:110px;position:absolute;z-index:-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 48 48">
+                            <path fill="none" stroke="#FFFBF5" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="4" d="M31 36L19 24l12-12" />
+                        </svg>
+                    </div>
+                    <h1 class="h5 mb-0" style="margin-right: 20px;margin-top: 10px;color:#a688fa;">Go Back</h1>
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2" style="background-color: #2f2b3a;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: #a688fa;">
+                                        Issue Books</div>
+                                    <div class="h5 mb-0 font-weight-bold" style="color: #FFFBF5;">{{ issue }} </div>
+                                </div>
+                                <div class="col-auto">
+                                    <span class="fluent--book-24-regular"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2" style="background-color: #2f2b3a;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: #a688fa;">
+                                        Avg. Ratings</div>
+                                    <div class="h5 mb-0 font-weight-bold" style="color: #FFFBF5;">{{avg_rating }}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <span class="mdi--star-outline"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2" style="background-color: #2f2b3a;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: #a688fa;">
+                                        DAILY TARGET
+                                        REACHED
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold" style="color: #FFFBF5;">
+                                                {{percentage}}%
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2" style="background-color: #FFFBF5;">
+                                                <div id="progress-bar" class="progress-bar" role="progressbar"
+                                                    style="width: 0%;background-color:#a688fa;" aria-valuenow="0"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2" style="background-color: #2f2b3a;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: #a688fa;">
+                                        Pending Requests</div>
+                                    <div class="h5 mb-0 font-weight-bold" style="color: #FFFBF5;">{{
+                                        total_pending_books}}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <span class="bxs--chat"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card shadow mb-4" style="background-color: #FFFBF5">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                            style="background-color: #2f2b3a;">
+                            <h6 class="m-0 font-weight-bold" style="color: #FFFBF5;">Issued Book Till Now</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow" style="background-color: #FFFBF5">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                            style="background-color: #2f2b3a;">
+                            <h6 class="m-0 font-weight-bold" style="color: #FFFBF5;">Issued Book Till Now (Section Wise)
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center" style="height:469px;overflow:hidden;">
+                                <img style="width: 469px;height:400px;object-fit: cover;scale:1.1;margin-top:30px;"
+                                    src="{{ url_for('static', filename='Assets/dashboard_plot.png') }}" alt="Pie Chart">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var progressBar = document.getElementById('progress-bar');
+        progressBar.style.width = '{{ percentage }}%';
+        progressBar.setAttribute('aria-valuenow', '{{ percentage }}');
+        fetch('/dashboard-data')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data.labels);
+                var ctx = document.getElementById('myChart');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: 'Books Issued',
+                            data: data.all,
+                            backgroundColor: 'rgba(26, 22, 37, 1)',
+                            borderColor: 'rgba(166, 136, 250, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: '#a688fa'
+                                },
+                                grid: {
+                                    color: '#C3ACD0'
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1,
+                                    color: '#a688fa'
+                                },
+                                grid: {
+                                    color: '#C3ACD0'
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+
+    </script>
+</body>
+
+</html>

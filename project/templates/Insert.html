@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insert Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'CSS/bootstrap.css') }}">
+  <script src="{{ url_for('static', filename = 'JS/bootstrap.js') }}"></script>
+  <link rel="icon" href="{{ url_for('static', filename = 'Assets/6.png') }}" type="image/x-icon">
+  <style>
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    body {
+      background-color: #1a1625;
+    }
+
+    #unique-btn {
+      display: inline-block;
+      padding: 32px;
+      position: relative;
+      letter-spacing: 1px;
+    }
+
+    #unique-btn .btn__circle,
+    #unique-btn .btn__text,
+    #unique-btn .btn__white-circle {
+      position: absolute;
+    }
+
+    #unique-btn .btn__circle {
+      top: 0;
+      left: 0;
+      margin-left: 68px;
+      height: 100%;
+      border-radius: 100%;
+      width: 100%;
+      box-shadow: 0 0 1px 1px #a688fa;
+      transition: 0.3s linear;
+    }
+
+    #unique-btn .btn__white-circle {
+      top: 50%;
+      left: 50%;
+      margin-left: 68px;
+      transform: translate(-50%, -50%) scale(0);
+      width: 56px;
+      height: 56px;
+      border-radius: 100%;
+      background: #a688fa;
+      display: flex;
+      transition: 0.3s ease-in-out;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    #unique-btn .btn__white-circle svg {
+      width: 24px;
+      height: 24px;
+      margin: auto;
+    }
+
+    #unique-btn .btn__text {
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      z-index: 2;
+      padding: 24px 8px;
+      transition: 0.3s linear;
+    }
+
+    #unique-btn:hover .btn__circle {
+      transform: scale(0);
+    }
+
+    #unique-btn:hover .btn__white-circle {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    #unique-btn:hover .btn__text {
+      transform: translate(-40px, -50%);
+    }
+
+    h2 {
+      color: #FFFBF5;
+    }
+
+    .form-control {
+      background-color: #2f2b3a;
+      color: #FFFBF5;
+    }
+
+    .form-control::-webkit-input-placeholder {
+      color: #FFFBF5;
+    }
+
+    .form-control:focus {
+      background-color: #FFFBF5;
+      box-shadow: none;
+      color: #2f2b3a;
+    }
+
+    label {
+      margin-bottom: 5px;
+      color: #a688fa;
+    }
+
+    @font-face {
+      font-family: Against;
+      src: url("{{ url_for('static', filename = 'Assets/against.ttf') }}");
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-3 mt-2">
+        <h2 class="heading-section" style="font-family: Against;">Insert Forms</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="wrapper">
+          <div class="row no-gutters">
+            <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+              <div class="contact-wrap w-100 p-md-5 p-4">
+                <h3 class="mb-4" style="color:#a688fa;font-family:Against;">Insert Book</h3>
+                <div class="mb-4" style="color: #FFFBF5;">
+                  Kindly Fill All the Details.
+                </div>
+                <form action="{{ url_for('main.insert_book') }}" method="POST" enctype="multipart/form-data">
+                  <div class="row" style="color: #a688fa;">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="label" for="name">Title</label>
+                        <input type="text" class="form-control" name="title" placeholder="Title" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="label" for="email">Author</label>
+                        <input type="text" class="form-control" name="author" placeholder="Author" required>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px;">
+                      <div class="form-group">
+                        <label class="label" for="subject">Description</label>
+                        <input type="text" class="form-control" name="content" placeholder="Content" required>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px;">
+                      <div class="form-group">
+                        <label class="label" for="subject">Image</label>
+                        <input type="file" class="form-control" name="image" accept="image/*" required>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px;">
+                      <div class="form-group">
+                        <label class="label" for="subject">Book</label>
+                        <input type="file" class="form-control" name="pdf" accept=".pdf" required>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px;">
+                      <div class="form-group">
+                        <label class="label" for="subject">Section</label>
+                        <input type="number" class="form-control" name="section_id" placeholder="Section ID" required>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px;">
+                      <div class="form-group">
+                        <label class="label" for="subject">Copies</label>
+                        <input type="number" min="1" class="form-control" name="copies_available"
+                          placeholder="Copies Available" required>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px;">
+                      <div class="form-group">
+                        <label class="label" for="subject">Price</label>
+                        <input type="number" min="0" class="form-control" name="price"
+                          placeholder="Write price in Rupees" required>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="col-md-12" style="margin-top: 20px;">
+                      <div class="form-group">
+                        <input type="submit" value="Add Book" class="btn btn-primary">
+                        <div class="submitting"></div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+              <img src="{{ url_for('static', filename = 'Assets/9.png') }}" alt="Avatar" class="card-img-top">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="wrapper">
+          <div class="row no-gutters">
+            <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+              <div class="contact-wrap w-100 p-md-5 p-4">
+                <h3 class="mb-4" style="color: #a688fa;font-family:Against;">Insert Section</h3>
+                <div class="mb-4" style="color: #FFFBF5;">
+                  Kindly Fill All the Details.
+                </div>
+                <form action="{{ url_for('main.insert_section') }}" method="POST">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="label">Section Id</label>
+                        <input type="number" class="form-control" name="section_id" placeholder="Section ID" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="label">Section Name</label>
+                        <input type="text" class="form-control" name="section_name" placeholder="Section Name" required>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px;">
+                      <div class="form-group">
+                        <label class="label" for="subject">Description</label>
+                        <textarea name="section_description" class="form-control" placeholder="Section Description"
+                          required></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px;">
+                      <div class="form-group">
+                        <label class="label" for="subject">Colour</label>
+                        <input type="text" class="form-control" name="section_color" placeholder="Section Colour"
+                          required>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 20px;">
+                      <div class="form-group">
+                        <input type="submit" value="Add Section" class="btn btn-primary">
+                        <div class="submitting"></div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+              <img src="{{ url_for('static', filename = 'Assets/11.png') }}" alt="Avatar" class="card-img-top">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="left:90.8%; bottom:25px;position:sticky;z-index:1;height:50px;width:30px">
+    <main class="content" id="unique-content" data-form-type="card">
+      <a href="{{ url_for('main.profile') }}" class="btn" id="unique-btn" style="border: none;">
+        <span class="btn__circle"></span>
+        <span class="btn__white-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+              d="M31 36L19 24l12-12" />
+          </svg>
+        </span>
+        <span class="btn__text" style="color: #FFFBF5;">Go Back</span>
+      </a>
+    </main>
+  </div>
+</body>
+
+</html>
