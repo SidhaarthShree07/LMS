@@ -352,7 +352,7 @@
   <div style="position: absolute;right:0px">
     <a class="logi" href="{{ url_for('auth.logout') }}">
       {% if current_user.image_filename %}
-      <img id="log" src="{{ url_for('static', filename=baseurl + current_user.image_filename) }}" alt="">
+      <img id="log" src="{{ baseurl + current_user.image_filename }}" alt="">
       {% else %}
       <img id="log" src="{{ url_for('static', filename='Assets/12.jpg') }}" alt="">
       {% endif %}
@@ -393,7 +393,7 @@
             {% endif %}
             <li class="card" style="width: 18rem;  text-align: center; margin-top:0px;"
               data-section-color="{{ book.section.color }}">
-              <img src="{{ url_for('static', filename=baseurl + book.image_filename) }}" alt="Avatar"
+              <img src="{{ baseurl + book.image_filename }}" alt="Avatar"
                 class="card-img-top">
               <div class="card-body">
                 <h5 class="card-title">{{ book.title }}</h5>
@@ -444,7 +444,7 @@
             {% endif %}
             <li class="card" style="width: 18rem;  text-align: center; margin-top:0px; position: relative;"
               data-section-color="{{ section.color }}">
-              <img src="{{ url_for('static', filename=baseurl + book.image_filename) }}" alt="Avatar"
+              <img src="{{ baseurl + book.image_filename }}" alt="Avatar"
                 class="card-img-top">
               <div class="card-body">
                 <h5 class="card-title">{{ book.title }}</h5>
