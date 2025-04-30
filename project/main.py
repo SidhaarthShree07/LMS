@@ -160,7 +160,7 @@ def book(id):
 @main.route('/read/<int:id>')
 def read(id):
     read = Book.query.get(id)
-    pdf_url = read.pdf_filename  # Now it will store URL, not local path
+    pdf_url = baseurl + read.pdf_filename  # Now it will store URL, not local path
 
     if not read.audio_file:
         def extract_text_from_pdf(pdf_path):
@@ -507,7 +507,7 @@ def checkout():
     for cart_book in user_cart_books:
         book = Book.query.get(cart_book.book_id)
         if book:
-            book_pdf_paths.append(os.path.join('project', 'static', 'upload', book.pdf_filename))
+            book_pdf_paths.append(baseurl + book.pdf_filename)
         print(book_pdf_paths)
         zip_path = os.path.join('project', 'static', 'Assets', 'books.zip')
     with zipfile.ZipFile(zip_path, 'w') as zipf:
