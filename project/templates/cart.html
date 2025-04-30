@@ -331,18 +331,10 @@
         $('#service').text('₹ ' + shippingCost.toFixed(2));
         $(document).ready(function () {
             $('#checkoutBtn').click(function () {
-                $.ajax({
-                    url: '/checkout',
-                    type: 'GET',
-                    success: function (response) {
-                        window.location.href = response.downloadUrl;
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(error);
-                    }
-                });
+                window.location.href = '/checkout';  // This triggers download
             });
         });
+
 
     </script>
 </body>
