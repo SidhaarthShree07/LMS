@@ -24,3 +24,4 @@ zip-files==0.4.1
 psycopg2-binary
 azure.storage.blob
 gunicorn
+requests
