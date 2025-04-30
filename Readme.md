@@ -34,6 +34,3 @@ https://drive.google.com/drive/folders/1ZmGm49cw9LNLSblmdt1-C8mV60aK11hR?usp=sha
 
 ### Project Report
 https://drive.google.com/file/d/169BS021tGs76ioKGiKPV68U9obuiGiZu/view?usp=sharing
-
-### Video
-https://drive.google.com/file/d/1dctMTldn9OEc9ZsApRy5TaOcVi_NBBl0/view?usp=sharing
