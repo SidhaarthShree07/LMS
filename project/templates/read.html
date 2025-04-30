@@ -94,7 +94,7 @@
         <hr>
         <div style="color: #FFFBF5;">
             <audio controls>
-                <source src="{{ url_for('static', filename=baseurl + read.audio_file) }}" type="audio/mp3">
+                <source src="{{ baseurl + read.audio_file }}" type="audio/mp3">
                 Your browser does not support the audio element.
             </audio>
         </div>
@@ -117,7 +117,7 @@
         </main>
     </div>
     <script>
-        var pdfUrl = "{{ url_for('static', filename=baseurl + read.pdf_filename) }}";
+        var pdfUrl = "{{ baseurl + read.pdf_filename }}";
         pdfjsLib.getDocument(pdfUrl).promise.then(function (pdfDoc_) {
             var pdfDoc = pdfDoc_;
             var numPages = pdfDoc.numPages;
