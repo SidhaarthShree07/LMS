@@ -298,7 +298,7 @@
                     <div class="user-heading round">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#imageUploadModal" id="imageUploadBtn">
                             {% if current_user.image_filename %}
-                            <img src="{{ url_for('static', filename=baseurl + current_user.image_filename) }}" alt="">
+                            <img src="{{ baseurl + current_user.image_filename }}" alt="">
                             {% else %}
                             <img src="{{ url_for('static', filename='Assets/12.jpg') }}" alt="">
                             {% endif %}
@@ -383,7 +383,7 @@
                                                 </th>
                                                 <td>
                                                     <div class="event-img">
-                                                        <img src="{{ url_for('static', filename=baseurl + issue.book.image_filename) }}"
+                                                        <img src="{{ baseurl + issue.book.image_filename }}"
                                                             alt="" />
                                                     </div>
                                                 </td>
@@ -453,7 +453,7 @@
                                                 </th>
                                                 <td>
                                                     <div class="event-img">
-                                                        <img src="{{ url_for('static', filename=baseurl + book.image_filename) }}"
+                                                        <img src="{{ baseurl + book.image_filename }}"
                                                             alt="" />
                                                     </div>
                                                 </td>
@@ -509,7 +509,7 @@
                                     <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
                                         {% if request.user.image_filename %}
                                         <img class="profile-image"
-                                            src="{{ url_for('static', filename=baseurl + request.user.image_filename) }}"
+                                            src="{{ baseurl + request.user.image_filename }}"
                                             alt="">
                                         {% else %}
                                         <img class="profile-image"
