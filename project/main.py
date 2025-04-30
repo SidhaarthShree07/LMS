@@ -501,38 +501,28 @@ def calculate_popularity(book):
     popularity += pop
     return popularity
 
+import requests
+import zipfile
+from io import BytesIO
+from flask import send_file
+
 @main.route('/checkout')
 @login_required
 def checkout():
     user_cart_books = Cart.query.filter_by(user_id=current_user.id).all()
+    book_pdf_urls = [baseurl + Book.query.get(cb.book_id).pdf_filename for cb in user_cart_books]
 
-    book_pdf_paths = []
-    for cart_book in user_cart_books:
-        book = Book.query.get(cart_book.book_id)
-        if book:
-            book_pdf_paths.append(baseurl + book.pdf_filename)
+    memory_file = BytesIO()
+    with zipfile.ZipFile(memory_file, 'w') as zf:
+        for url in book_pdf_urls:
+            response = requests.get(url)
+            if response.status_code == 200:
+                filename = url.split("/")[-1]
+                zf.writestr(filename, response.content)
 
-    # Create ZIP archive in memory
-    zip_buffer = BytesIO()
-    with zipfile.ZipFile(zip_buffer, 'w') as zipf:
-        for url in book_pdf_paths:
-            try:
-                response = requests.get(url)
-                response.raise_for_status()  # Ensure request was successful
-                filename = os.path.basename(url)
-                zipf.writestr(filename, response.content)
-            except requests.RequestException as e:
-                print(f"Failed to download {url}: {e}")
+    memory_file.seek(0)
+    return send_file(memory_file, mimetype='application/zip', as_attachment=True, download_name='books.zip')
 
-    zip_buffer.seek(0)
-
-    # Return the zip file as a downloadable file
-    return send_file(
-        zip_buffer,
-        mimetype='application/zip',
-        as_attachment=True,
-        download_name='books.zip'
-    )
 plot_dir = os.path.join('project','static', 'Assets')
 os.makedirs(plot_dir, exist_ok=True)
 @main.route('/dashboard')
