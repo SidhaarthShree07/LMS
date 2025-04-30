@@ -16,6 +16,7 @@ from azure.storage.blob import BlobServiceClient
 import uuid
 from datetime import datetime,timedelta
 import matplotlib
+import requests
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 main = Blueprint('main', __name__)
