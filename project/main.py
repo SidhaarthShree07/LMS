@@ -9,6 +9,7 @@ import os
 from . import db
 import fitz
 import zipfile
+from io import BytesIO
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import func,text
 import pytz
@@ -501,20 +502,37 @@ def calculate_popularity(book):
     return popularity
 
 @main.route('/checkout')
+@login_required
 def checkout():
     user_cart_books = Cart.query.filter_by(user_id=current_user.id).all()
+
     book_pdf_paths = []
     for cart_book in user_cart_books:
         book = Book.query.get(cart_book.book_id)
         if book:
             book_pdf_paths.append(baseurl + book.pdf_filename)
-        print(book_pdf_paths)
-        zip_path = os.path.join('project', 'static', 'Assets', 'books.zip')
-    with zipfile.ZipFile(zip_path, 'w') as zipf:
-        for pdf_path in book_pdf_paths:
-            zipf.write(pdf_path, os.path.basename(pdf_path))
-    directory = 'project/static/Assets/'
-    return jsonify({'downloadUrl': '/static/Assets/books.zip'})
+
+    # Create ZIP archive in memory
+    zip_buffer = BytesIO()
+    with zipfile.ZipFile(zip_buffer, 'w') as zipf:
+        for url in book_pdf_paths:
+            try:
+                response = requests.get(url)
+                response.raise_for_status()  # Ensure request was successful
+                filename = os.path.basename(url)
+                zipf.writestr(filename, response.content)
+            except requests.RequestException as e:
+                print(f"Failed to download {url}: {e}")
+
+    zip_buffer.seek(0)
+
+    # Return the zip file as a downloadable file
+    return send_file(
+        zip_buffer,
+        mimetype='application/zip',
+        as_attachment=True,
+        download_name='books.zip'
+    )
 plot_dir = os.path.join('project','static', 'Assets')
 os.makedirs(plot_dir, exist_ok=True)
 @main.route('/dashboard')
